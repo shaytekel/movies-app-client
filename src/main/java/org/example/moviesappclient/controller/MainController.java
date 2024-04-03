@@ -54,11 +54,7 @@ public class MainController {
         // Check if any of the fields are empty
         if (id.isEmpty() || name.isEmpty() || director.isEmpty() || description.isEmpty() || yearText.isEmpty() || stockText.isEmpty() || priceText.isEmpty()) {
             // Display error popup
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("All fields are required.");
-            alert.showAndWait();
+            displayErrorAlert("All fields are required.");
             return;
         }
 
@@ -79,20 +75,12 @@ public class MainController {
                 alert.showAndWait();
             }
             else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Something went wrong");
-                alert.showAndWait();
+                displayErrorAlert("Something went wrong");
             }
 
         } catch (NumberFormatException e) {
             // Display error popup if year, stock, or price is not a valid number
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter valid numbers for Year, Stock, and Price.");
-            alert.showAndWait();
+            displayErrorAlert("Please enter valid numbers for Year, Stock, and Price.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -111,11 +99,7 @@ public class MainController {
             alert.showAndWait();
         } else {
             // Display error message
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Failed to purchase movie.");
-            alert.showAndWait();
+            displayErrorAlert("Failed to purchase movie.");
         }
 
     }
@@ -149,11 +133,7 @@ public class MainController {
 
         } else {
             // Display an error message if the movie was not found
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Movie not found.");
-            alert.showAndWait();
+            displayErrorAlert("Movie not found.");
         }
     }
 
@@ -167,11 +147,7 @@ public class MainController {
             populateSearchResults(searchResults);
         } else {
             // Display an error message if the movie was not found
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Results not found.");
-            alert.showAndWait();
+            displayErrorAlert("Results not found.");
         }
     }
 
@@ -224,11 +200,15 @@ public class MainController {
             root.setLayoutX(165);
             functionalityPane.getChildren().setAll(root);
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Failed to load screen: " + fxmlFile);
-            alert.showAndWait();
+            displayErrorAlert("Failed to load screen");
         }
+    }
+
+    private void displayErrorAlert(String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }
