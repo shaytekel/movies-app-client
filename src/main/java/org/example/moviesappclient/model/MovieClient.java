@@ -45,15 +45,11 @@ public class MovieClient {
         }
     }
 
-    public boolean buyMovie(String id) throws IOException {
-        Request request = new Request("buyMovie", createRequestMap("id", id));
-        Object response = sendRequestToServer(request);
-        if (response instanceof Boolean) {
-            return (boolean) response;
-        } else {
-            // Handle unexpected response types
-            return false;
-        }
+    public boolean buyMovie(String id, int quantity) throws IOException {
+        Request request = new Request("buyMovie", createRequestMapForBuy(id, quantity));
+        Response response = sendRequestToServer(request);
+        assert response != null;
+        return (boolean) response.getData();
     }
 
     public void deleteMovie(String id) throws IOException {
@@ -76,6 +72,13 @@ public class MovieClient {
     private Map<String, Object> createRequestMap(String name, Object value) {
         Map<String, Object> reqMap = new HashMap<>();
         reqMap.put(name, value);
+        return reqMap;
+    }
+
+    private Map<String, Object> createRequestMapForBuy(String id, int quantity) {
+        Map<String, Object> reqMap = new HashMap<>();
+        reqMap.put("id", id);
+        reqMap.put("quantity", quantity);
         return reqMap;
     }
 

@@ -89,11 +89,15 @@ public class MainController {
     @FXML
     public void buyMovie() throws IOException {
         String id = idField.getText().trim();
+        int quantity = Integer.parseInt(quantityField.getText().trim());
         if(id.isEmpty()) {
             displayErrorAlert("Please write the id of the movie.");
             return;
         }
-        boolean success = movieClient.buyMovie(id);
+        if(quantity <= 0) {
+            displayErrorAlert("Quantity should be a positive number and not zero");
+        }
+        boolean success = movieClient.buyMovie(id, quantity);
         if (success) {
             // Display success message
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

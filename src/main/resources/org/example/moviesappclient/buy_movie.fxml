@@ -12,6 +12,7 @@
     <Label text="Buy Movie" style="-fx-font-size: 18px;" textFill="#f2e9e9"/>
 
     <TextField fx:id="idField" promptText="Enter ID to Buy" />
+    <TextField fx:id="quantityField" promptText="Enter quantity" />
 
     <Button text="Buy" onAction="#buyMovie"/>
 </VBox>
