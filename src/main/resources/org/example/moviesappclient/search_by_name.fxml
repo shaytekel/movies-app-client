@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.example.moviesappclient.controller.MainController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+    </padding>
+
+    <Label text="Search Movie by Name" style="-fx-font-size: 18px;" textFill="#f2e9e9"/>
+
+    <TextField fx:id="nameField" promptText="Enter Name to Search" />
+
+    <Button text="Search" onAction="#searchMoviesByName"/>
+
+    <!-- Placeholder for displaying search results -->
+    <TableView fx:id="searchResultsTable" visible="false">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn" />
+            <TableColumn text="Name" fx:id="nameColumn" />
+            <!-- Add more columns as needed -->
+        </columns>
+    </TableView>
+</VBox>
