@@ -89,6 +89,10 @@ public class MainController {
     @FXML
     public void buyMovie() throws IOException {
         String id = idField.getText().trim();
+        if(id.isEmpty()) {
+            displayErrorAlert("Please write the id of the movie.");
+            return;
+        }
         boolean success = movieClient.buyMovie(id);
         if (success) {
             // Display success message
@@ -108,6 +112,10 @@ public class MainController {
     @FXML
     public void deleteMovie() throws IOException {
         String movieId = idField.getText();
+        if(movieId.isEmpty()) {
+            displayErrorAlert("Please write the id of the movie.");
+            return;
+        }
         try {
             movieClient.deleteMovie(movieId);
             deleteStatusLabel.setText("Deletion successful");
@@ -121,6 +129,11 @@ public class MainController {
     @FXML
     public void getMovieById() throws IOException {
         // Optionally, handle response or update UI
+        String id = idField.getText().trim();
+        if(id.isEmpty()) {
+            displayErrorAlert("Please write the id.");
+            return;
+        }
         Movie movie = movieClient.getMovieById(idField.getText());
         if (movie != null) {
             // Display the movie details in the application (e.g., populate fields)
@@ -141,6 +154,10 @@ public class MainController {
     @FXML
     public void searchMoviesByName() throws IOException {
         String name = nameField.getText();
+        if(name.isEmpty()) {
+            displayErrorAlert("Please enter the movie's name.");
+            return;
+        }
         List<Movie> searchResults = movieClient.searchMoviesByName(name);
 
         if(searchResults != null) {
