@@ -65,8 +65,8 @@ public class MovieClient {
     public List<Movie> searchMoviesByName(String name) throws IOException {
         Request request = new Request("searchMoviesByName", createRequestMap("name", name));
         Response response = sendRequestToServer(request);
-        if (response instanceof List) {
-            return (List<Movie>) response;
+        if (response instanceof MovieListResponse) {
+            return ((MovieListResponse) response).getMovieList();
         } else {
             // Handle unexpected response types
             return null;
@@ -94,8 +94,14 @@ public class MovieClient {
             // Read the JSON response from the server
             String jsonResponse = reader.readLine();
 
-            // Deserialize the JSON response into a Response object
-            Response response = gson.fromJson(jsonResponse, Response.class);
+            Response response;
+
+            if(request.getAction().equals("searchMoviesByName")) {
+                response = gson.fromJson(jsonResponse, MovieListResponse.class);
+            }
+            else {
+                response = gson.fromJson(jsonResponse, Response.class);
+            }
 
             // Close the streams and socket
             reader.close();

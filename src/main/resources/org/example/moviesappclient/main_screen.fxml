@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
@@ -12,7 +13,7 @@
         <Image url="https://getwallpapers.com/wallpaper/full/1/b/d/829640-gorgerous-movie-backgrounds-1920x1080-ipad-pro.jpg" />
     </ImageView>
 
-    <VBox alignment="CENTER" prefHeight="979.0" prefWidth="1799.0" spacing="20.0">
+    <VBox alignment="CENTER" prefHeight="822.0" prefWidth="1617.0" spacing="20.0">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
@@ -28,9 +29,12 @@
         </HBox>
 
         <!-- Container for functionality screens -->
-        <StackPane VBox.vgrow="ALWAYS">
+        <StackPane alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
             <!-- Placeholder for the functionality screens -->
-            <Pane fx:id="functionalityPane" VBox.vgrow="ALWAYS" />
+            <Pane fx:id="functionalityPane" prefHeight="858.0" prefWidth="1819.0" VBox.vgrow="ALWAYS">
+                <effect>
+                    <Blend />
+                </effect></Pane>
         </StackPane>
     </VBox>
 
