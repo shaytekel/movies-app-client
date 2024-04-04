@@ -4,10 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import org.example.moviesappclient.model.Movie;
 import org.example.moviesappclient.model.MovieClient;
 import org.example.moviesappclient.MovieItem;
@@ -17,13 +15,13 @@ import java.util.List;
 
 public class MainController {
     private final MovieClient movieClient;
-    public Label searchResultLabel, deleteStatusLabel;
+    public Label deleteStatusLabel;
 
     @FXML
     private TableView<MovieItem> searchResultsTable;
 
     @FXML
-    private TableColumn<MovieItem, String> idColumn, nameColumn, directorColumn, descriptionColumn;
+    private TableColumn<MovieItem, String> idColumn, nameColumn, directorColumn, descriptionColumn, yearColumn, stockColumn, priceColumn;
 
     @FXML
     private TextField idField, nameField, directorField, descriptionField, yearField, stockField, priceField, quantityField;
@@ -32,6 +30,8 @@ public class MainController {
     private Pane functionalityPane;
 
     private final ObservableList<MovieItem> searchResults = FXCollections.observableArrayList();
+
+    private final ObservableList<MovieItem> all = FXCollections.observableArrayList();
 
     public MainController() {
         this.movieClient = new MovieClient();
@@ -172,6 +172,16 @@ public class MainController {
         }
     }
 
+    @FXML
+    public void showAllMovies() throws IOException{
+        List<Movie> allMovies = movieClient.showAllMovies();
+        if(allMovies != null) {
+            populateSearchResults(allMovies);
+        } else {
+            displayErrorAlert("No movies.");
+        }
+    }
+
     private void populateSearchResults(List<Movie> results) {
         // Bind the TableView's items to the searchResults list
         searchResultsTable.setItems(searchResults);
@@ -181,7 +191,6 @@ public class MainController {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         directorColumn.setCellValueFactory(cellData -> cellData.getValue().directorProperty());
         descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
-        // Add more TableColumn configurations as needed
 
         ObservableList<MovieItem> observableList = FXCollections.observableArrayList();
         results.forEach(movie -> observableList.add(MovieItem.fromMovie(movie)));
@@ -232,4 +241,6 @@ public class MainController {
         alert.setContentText(msg);
         alert.showAndWait();
     }
+
+
 }

@@ -55,11 +55,21 @@ public class MovieClient {
     public void deleteMovie(String id) throws IOException {
         Request request = new Request("deleteMovie", createRequestMap("id", id));
         sendRequestToServer(request);
-        // Process the response if needed
     }
 
     public List<Movie> searchMoviesByName(String name) throws IOException {
         Request request = new Request("searchMoviesByName", createRequestMap("name", name));
+        Response response = sendRequestToServer(request);
+        if (response instanceof MovieListResponse) {
+            return ((MovieListResponse) response).getMovieList();
+        } else {
+            // Handle unexpected response types
+            return null;
+        }
+    }
+
+    public List<Movie> showAllMovies() throws IOException {
+        Request request = new Request("showAllMovies", null);
         Response response = sendRequestToServer(request);
         if (response instanceof MovieListResponse) {
             return ((MovieListResponse) response).getMovieList();
@@ -99,7 +109,7 @@ public class MovieClient {
 
             Response response;
 
-            if(request.getAction().equals("searchMoviesByName")) {
+            if(request.getAction().equals("searchMoviesByName") || request.getAction().equals("showAllMovies") ) {
                 response = gson.fromJson(jsonResponse, MovieListResponse.class);
             }
             else {

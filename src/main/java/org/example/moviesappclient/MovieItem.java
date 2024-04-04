@@ -1,5 +1,6 @@
 package org.example.moviesappclient;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import org.example.moviesappclient.model.Movie;
@@ -31,6 +32,7 @@ public class MovieItem {
 
     public String getDescription() { return description.get(); }
 
+
     // Property getters
     public SimpleStringProperty idProperty() {
         return id;
@@ -47,4 +49,16 @@ public class MovieItem {
     public SimpleStringProperty descriptionProperty() {
         return description;
     }
+
+//    public ObservableValue<String> yearProperty() {
+//        return year;
+//    }
+//
+//    public SimpleStringProperty stockProperty() {
+//        return stock;
+//    }
+//
+//    public SimpleStringProperty priceProperty() {
+//        return price;
+//    }
 }
